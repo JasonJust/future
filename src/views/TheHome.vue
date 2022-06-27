@@ -1,7 +1,10 @@
 <template>
   <div class="the-home">
-    <div class="the-home-menu"></div>
-    <div class="the-home-content"></div>
+    <div class="the-home-menu">
+    </div>
+    <div class="the-home-content">
+      <router-view/>
+    </div>
   </div>
 </template>
 
