@@ -1,5 +1,25 @@
-$--color-background-primary: orange;
+$--color-primary: gray;
+
+//$--background-color-primary: linear-gradient(to left top, #062d9c, #0092ff);
+$--background-color-primary: transparent;
+$--vice-background-color: rgba(221, 221, 221, 0.2);
+
+$--shadow-color-primary: #f0f0f0;
+
+$--border-radius-primary: 8px;
 
 $--top-menu-height: 48px;
+$gap-xl: 32px;
+$gap: 16px;
+$gap-small: 8px;
 
-$--shadow-color-primary: #f0f0f0
+.el-form {
+  .el-form-item {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /deep/ .el-form-item__content {
+    width: 80% !important;
+  }
+}
