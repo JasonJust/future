@@ -1,7 +1,7 @@
 $--color-primary: gray;
 
 //$--background-color-primary: linear-gradient(to left top, #062d9c, #0092ff);
-$--background-color-primary: transparent;
+$--background-color-primary: var(--backgroundDefault, transparent);
 $--vice-background-color: rgba(221, 221, 221, 0.2);
 
 $--shadow-color-primary: #f0f0f0;
