@@ -24,6 +24,11 @@ const routes = [
         path: '/index',
         name: 'index',
         component: () => import('../views/index/IndexPage.vue')
+      },
+      {
+        path: '/systemSettings',
+        name: 'systemSettings',
+        component: () => import('../views/setting/SystemSettings.vue')
       }
     ]
   }

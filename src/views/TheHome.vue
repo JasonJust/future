@@ -13,7 +13,15 @@
       </div>
       <div class="home-user"></div>
     </div>
-    <div class="the-home-left" v-if="type !== 'top'">31</div>
+    <div class="the-home-left" v-if="type !== 'top'">
+      <el-menu mode="vertical"
+               :default-active="defaultMenuSelected"
+               @select="handleMenuChange">
+        <el-menu-item v-for="item in menuList"
+                      :key="item.id"
+                      :index="item.id.toString()">{{item.name}}</el-menu-item>
+      </el-menu>
+    </div>
     <div class="the-home-content" :class="[type !== 'top' ? 'the-home-right' : '']">
       <router-view/>
     </div>
@@ -29,16 +37,45 @@ export default {
     return {
       type: 'top',
       menuList: menu,
-      defaultMenuSelected: '1'
+      defaultMenuSelected: this.$route.query.defaultMenuSelected || '1'
     }
   },
+  mounted () {
+    this.$bus.$on('switchType', (data) => {
+      this.changeMenuSetting(data, 'type')
+    })
+    this.$bus.$on('themeType', (data) => {
+      this.changeMenuSetting(data, 'theme')
+    })
+  },
   methods: {
-    handleMenuChange (key) {
-      console.log(this.menuList, key)
-      console.log(_.find(this.menuList, ['id', Number(key)]).children[0].config.route.name)
-      if (_.find(this.menuList, ['id', Number(key)]).children.length > 0) {
-        this.$router.push({ name: _.find(this.menuList, ['id', Number(key)].children[0].config.route.name) })
+    changeMenuSetting (data, type) {
+      if (type === 'type') {
+        if (data) {
+          this.type = 'left'
+        } else {
+          this.type = 'top'
+        }
+      } else {
+        if (data) {
+          document.getElementsByClassName('the-home-content')[0].style.setProperty('--backgroundDefault', 'orange')
+        } else {
+          document.getElementsByClassName('the-home-content')[0].style.setProperty('--backgroundDefault', 'transparent')
+        }
       }
+    },
+    handleMenuChange (key) {
+      this.$router.push({
+        name: _.find(this.menuList, ['id', Number(key)]).config.route.name,
+        query: {
+          defaultMenuSelected: key
+        }
+      })
+      // _.find(this.menuList).config.route.name
+      // console.log(_.find(this.menuList, ['id', Number(key)]).children[0].config.route.name)
+      // if (_.find(this.menuList, ['id', Number(key)]).children.length > 0) {
+      //   this.$router.push({ name: _.find(this.menuList, ['id', Number(key)].children[0].config.route.name) })
+      // }
     }
   }
 }
@@ -100,11 +137,13 @@ export default {
   .the-home-content {
     width: 100%;
     height: calc(100% - 48px);
+    background-color: $--background-color-primary;
   }
 
   .the-home-left {
     width: 250px;
     height: 100%;
+    box-shadow: 5px 5px 15px $--shadow-color-primary;
   }
 
   .the-home-right {

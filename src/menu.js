@@ -59,5 +59,20 @@ export default [
         }
       }
     ]
+  },
+  {
+    id: 3,
+    pid: 0,
+    name: '系统设置',
+    type: 'menu',
+    order: 1,
+    config: {
+      isDefault: true,
+      icon: 'el-icon-s-order',
+      route: {
+        name: 'systemSettings'
+      },
+      children: []
+    }
   }
 ]
