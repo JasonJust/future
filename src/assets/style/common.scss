@@ -1,8 +1,9 @@
-$--color-primary: gray;
+$--color-primary: var(--color, gray);
 
-//$--background-color-primary: linear-gradient(to left top, #062d9c, #0092ff);
+//$--background-color-deep: linear-gradient(to left top, #2347ad, #0092ff);
 $--background-color-primary: var(--backgroundDefault, transparent);
 $--vice-background-color: rgba(221, 221, 221, 0.2);
+$--bar-primary: #0092ff;
 
 $--shadow-color-primary: #f0f0f0;
 

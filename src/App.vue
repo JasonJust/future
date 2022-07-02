@@ -11,7 +11,7 @@
   }
   body {
     min-width: 1200px;
-    min-height: 600px;
+    /*min-height: 600px;*/
     overflow: auto;
   }
   html, body, #app {

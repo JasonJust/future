@@ -8,22 +8,32 @@
                  @select="handleMenuChange">
           <el-menu-item v-for="item in menuList"
                         :key="item.id"
-                        :index="item.id.toString()">{{item.name}}</el-menu-item>
+                        :index="item.id.toString()">
+            <i :class="item.config.icon" v-if="item.config.icon"></i>
+            <span slot="title">{{item.name}}</span>
+          </el-menu-item>
         </el-menu>
       </div>
       <div class="home-user"></div>
     </div>
-    <div class="the-home-left" v-if="type !== 'top'">
-      <el-menu mode="vertical"
+    <div class="the-home-vertical" :class="[type !== 'top' ? 'the-home-all' : '']">
+      <el-menu class="el-menu-vertical-small"
+               mode="vertical"
+               v-if="type !== 'top'"
+               :collapse="isCollapse"
+               collapse-transition
                :default-active="defaultMenuSelected"
                @select="handleMenuChange">
         <el-menu-item v-for="item in menuList"
                       :key="item.id"
-                      :index="item.id.toString()">{{item.name}}</el-menu-item>
+                      :index="item.id.toString()">
+                      <i :class="item.config.icon" v-if="item.config.icon"></i>
+          <span slot="title">{{item.name}}</span>
+        </el-menu-item>
       </el-menu>
-    </div>
-    <div class="the-home-content" :class="[type !== 'top' ? 'the-home-right' : '']">
-      <router-view/>
+      <div class="the-home-content" :class="[type !== 'top' ? 'the-home-right' : '']">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
@@ -36,32 +46,54 @@ export default {
   data () {
     return {
       type: 'top',
+      isCollapse: false,
       menuList: menu,
       defaultMenuSelected: this.$route.query.defaultMenuSelected || '1'
     }
   },
   mounted () {
-    this.$bus.$on('switchType', (data) => {
-      this.changeMenuSetting(data, 'type')
-    })
-    this.$bus.$on('themeType', (data) => {
-      this.changeMenuSetting(data, 'theme')
-    })
+    this.init()
   },
   methods: {
-    changeMenuSetting (data, type) {
-      if (type === 'type') {
-        if (data) {
-          this.type = 'left'
-        } else {
-          this.type = 'top'
-        }
-      } else {
-        if (data) {
-          document.getElementsByClassName('the-home-content')[0].style.setProperty('--backgroundDefault', 'orange')
-        } else {
-          document.getElementsByClassName('the-home-content')[0].style.setProperty('--backgroundDefault', 'transparent')
-        }
+    init () {
+      this.$bus.$on('switchType', (data) => {
+        this.changeMenuSetting(data)
+      })
+      this.$bus.$on('themeType', (data) => {
+        this.changeMenuSetting(data)
+      })
+      this.$bus.$on('elasticType', (data) => {
+        this.changeMenuSetting(data)
+      })
+    },
+    changeMenuSetting (data) {
+      switch (data.label) {
+        case 'type':
+          if (data.value) {
+            this.type = 'left'
+          } else {
+            this.type = 'top'
+          }
+          break
+        case 'elastic':
+          if (data.value) {
+            this.isCollapse = false
+          } else {
+            this.isCollapse = true
+          }
+          break
+        case 'theme':
+          if (data.value) {
+            document.getElementsByClassName('the-home-content')[0].style.color = 'white'
+            // document.getElementsByClassName('the-home-content')[0].style.setProperty('--color', 'white')
+            document.getElementsByClassName('the-home-content')[0].style.background = 'linear-gradient(to left top, #2347ad, #0092ff)'
+          } else {
+            document.getElementsByClassName('the-home-content')[0].style.background = 'transparent'
+            document.getElementsByClassName('the-home-content')[0].style.color = 'black'
+            // document.getElementsByClassName('the-home-content')[0].style.setProperty('--color', 'gray')
+            // document.getElementsByClassName('the-home-content')[0].style.setProperty('--backgroundDefault', 'white')
+          }
+          break
       }
     },
     handleMenuChange (key) {
@@ -71,11 +103,6 @@ export default {
           defaultMenuSelected: key
         }
       })
-      // _.find(this.menuList).config.route.name
-      // console.log(_.find(this.menuList, ['id', Number(key)]).children[0].config.route.name)
-      // if (_.find(this.menuList, ['id', Number(key)]).children.length > 0) {
-      //   this.$router.push({ name: _.find(this.menuList, ['id', Number(key)].children[0].config.route.name) })
-      // }
     }
   }
 }
@@ -97,6 +124,7 @@ export default {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    z-index: 1;
 
     .home-logo {
       height: 100%;
@@ -117,6 +145,7 @@ export default {
 
       .el-menu {
         height: 100%;
+        border: none;
 
         .el-menu-item {
           height: 100%;
@@ -134,20 +163,37 @@ export default {
     }
   }
 
-  .the-home-content {
+  .the-home-vertical {
+    display: flex;
     width: 100%;
     height: calc(100% - 48px);
+    overflow-y: auto;
     background-color: $--background-color-primary;
+
+    .the-home-content {
+      width: 100%;
+      height: 100% ;
+    }
+
+    .el-menu-vertical-small {
+      width: 65px;
+      height: 100%;
+      box-shadow: 5px 5px 15px $--shadow-color-primary;
+    }
+
+    .el-menu-vertical-small:not(.el-menu--collapse) {
+      width: 250px;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .the-home-right:not(.el-menu--collapse) {
+      width: calc(100% - 65px);
+      height: 100%;
+    }
   }
 
-  .the-home-left {
-    width: 250px;
-    height: 100%;
-    box-shadow: 5px 5px 15px $--shadow-color-primary;
-  }
-
-  .the-home-right {
-    width: calc(100% - 250px);
+  .the-home-all {
     height: 100%;
   }
 }
