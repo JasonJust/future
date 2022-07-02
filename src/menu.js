@@ -17,14 +17,14 @@ export default [
   {
     id: 2,
     pid: 0,
-    name: '图表页',
+    name: '数据视图',
     type: 'menu',
     order: 2,
     config: {
       isDefault: true,
       icon: 'el-icon-s-order',
       route: {
-        name: 'login'
+        name: 'dataView'
       }
     },
     children: [
