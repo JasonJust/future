@@ -8,7 +8,7 @@
                  @select="handleMenuChange">
           <el-menu-item v-for="item in menuList"
                         :key="item.id"
-                        :index="item.id.toString()">
+                        :index="item.config.route.name">
             <i :class="item.config.icon" v-if="item.config.icon"></i>
             <span slot="title">{{item.name}}</span>
           </el-menu-item>
@@ -26,12 +26,12 @@
                @select="handleMenuChange">
         <el-menu-item v-for="item in menuList"
                       :key="item.id"
-                      :index="item.id.toString()">
+                      :index="item.config.route.name">
                       <i :class="item.config.icon" v-if="item.config.icon"></i>
           <span slot="title">{{item.name}}</span>
         </el-menu-item>
       </el-menu>
-      <div class="the-home-content" :class="[type !== 'top' ? 'the-home-right' : '']">
+      <div class="the-home-content">
         <router-view/>
       </div>
     </div>
@@ -39,77 +39,59 @@
 </template>
 
 <script>
-import menu from '../menu'
-import * as _ from 'lodash'
+import menu from '@/menu'
 export default {
   name: 'TheHome',
   data () {
     return {
-      type: 'top',
-      isCollapse: false,
-      menuList: menu,
-      defaultMenuSelected: this.$route.query.defaultMenuSelected || '1'
+      menuList: menu
     }
   },
   mounted () {
-    this.init()
+  },
+  computed: {
+    defaultMenuSelected () {
+      return this.$route.name || 'index'
+    },
+    type () {
+      return this.$store.state.menuType
+    },
+    isCollapse () {
+      return !this.$store.state.elasticType
+    }
   },
   methods: {
-    init () {
-      this.$bus.$on('switchType', (data) => {
-        this.changeMenuSetting(data)
+    handleMenuChange (routeName) {
+      this.$router.push({
+        name: routeName
       })
-      this.$bus.$on('themeType', (data) => {
-        this.changeMenuSetting(data)
-      })
-      this.$bus.$on('elasticType', (data) => {
-        this.changeMenuSetting(data)
-      })
-    },
-    changeMenuSetting (data) {
-      switch (data.label) {
-        case 'type':
-          if (data.value) {
-            this.type = 'left'
-          } else {
-            this.type = 'top'
-          }
+    }
+  },
+  watch: {
+    '$store.state.themeType' () {
+      switch (this.$store.state.themeType) {
+        case 'default':
+          document.getElementsByClassName('the-home-content')[0].style.background = 'transparent'
+          document.getElementsByClassName('the-home-content')[0].style.color = 'black'
           break
-        case 'elastic':
-          if (data.value) {
-            this.isCollapse = false
-          } else {
-            this.isCollapse = true
-          }
+        case 'deep':
+          document.getElementsByClassName('the-home-content')[0].style.color = 'white'
+          // document.getElementsByClassName('the-home-content')[0].style.setProperty('--color', 'white')
+          // document.getElementsByClassName('the-home-content')[0].style.background = 'linear-gradient(to left top, #2347ad, #0092ff)'
+          document.getElementsByClassName('the-home-content')[0].style.background = 'black'
           break
-        case 'theme':
-          if (data.value) {
-            document.getElementsByClassName('the-home-content')[0].style.color = 'white'
-            // document.getElementsByClassName('the-home-content')[0].style.setProperty('--color', 'white')
-            document.getElementsByClassName('the-home-content')[0].style.background = 'linear-gradient(to left top, #2347ad, #0092ff)'
-          } else {
-            document.getElementsByClassName('the-home-content')[0].style.background = 'transparent'
-            document.getElementsByClassName('the-home-content')[0].style.color = 'black'
-            // document.getElementsByClassName('the-home-content')[0].style.setProperty('--color', 'gray')
-            // document.getElementsByClassName('the-home-content')[0].style.setProperty('--backgroundDefault', 'white')
-          }
+        case 'customized':
+          document.getElementsByClassName('the-home-content')[0].style.color = 'white'
+          document.getElementsByClassName('the-home-content')[0].style.background = 'orange'
           break
       }
-    },
-    handleMenuChange (key) {
-      this.$router.push({
-        name: _.find(this.menuList, ['id', Number(key)]).config.route.name,
-        query: {
-          defaultMenuSelected: key
-        }
-      })
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  @import "../assets/style/common";
+  @import "@/assets/style/common";
 .the-home {
   height: 100%;
   width: 100%;
@@ -119,7 +101,7 @@ export default {
   .the-home-top {
     height: $--top-menu-height;
     width: 100%;
-    box-shadow: 5px 5px 15px $--shadow-color-primary;
+    box-shadow: $--shadow-color-primary;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -171,14 +153,17 @@ export default {
     background-color: $--background-color-primary;
 
     .the-home-content {
+      height: 100%;
       width: 100%;
-      height: 100% ;
+      /*width: calc(100% - 32px);
+      height: calc(100% - 32px);
+      padding: $gap;*/
     }
 
     .el-menu-vertical-small {
       width: 65px;
       height: 100%;
-      box-shadow: 5px 5px 15px $--shadow-color-primary;
+      box-shadow: $--shadow-color-primary;
     }
 
     .el-menu-vertical-small:not(.el-menu--collapse) {

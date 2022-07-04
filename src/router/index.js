@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/TheHome.vue'
+import Home from '@/views/TheHome.vue'
 
 Vue.use(VueRouter)
 
@@ -12,7 +12,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/TheLogin.vue')
+    component: () => import('@/views/TheLogin.vue')
   },
   {
     path: '/home',
@@ -23,17 +23,17 @@ const routes = [
       {
         path: '/index',
         name: 'index',
-        component: () => import('../views/index/IndexPage.vue')
+        component: () => import('@/views/index/IndexPage.vue')
       },
       {
         path: '/dataView',
         name: 'dataView',
-        component: () => import('../views/echarts/DataView.vue')
+        component: () => import('@/views/echarts/DataView.vue')
       },
       {
         path: '/systemSettings',
         name: 'systemSettings',
-        component: () => import('../views/setting/SystemSettings.vue')
+        component: () => import('@/views/setting/SystemSettings.vue')
       }
     ]
   }

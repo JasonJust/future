@@ -8,11 +8,16 @@
     </el-switch>
     <br/>
     <the-title-item title="主题色设置"></the-title-item>
-    <el-switch
-      v-model="theme"
-      active-text="深色主题色"
-      inactive-text="浅色主题色">
-    </el-switch>
+<!--    <el-switch-->
+<!--      v-model="theme"-->
+<!--      active-text="深色主题色"-->
+<!--      inactive-text="浅色主题色">-->
+<!--    </el-switch>-->
+    <el-radio-group v-model="theme">
+      <el-radio label="default">浅色/默认</el-radio>
+      <el-radio label="deep">深色</el-radio>
+      <el-radio label="customized">定制色</el-radio>
+    </el-radio-group>
     <br/>
     <div v-if="type">
       <the-title-item title="菜单折叠展开"></the-title-item>
@@ -34,27 +39,27 @@ export default {
   },
   data () {
     return {
-      type: false,
-      theme: false,
-      elastic: true
+      type: this.$store.state.menuType === 'left',
+      theme: this.$store.state.themeType || 'default',
+      elastic: this.$store.state.elasticType
     }
   },
   watch: {
     'type' () {
-      this.$bus.$emit('switchType', { label: 'type', value: this.type })
+      this.$store.commit('setMenuType', this.type ? 'left' : 'top')
     },
     'theme' () {
-      this.$bus.$emit('themeType', { label: 'theme', value: this.theme })
+      this.$store.commit('setThemeType', this.theme)
     },
     'elastic' () {
-      this.$bus.$emit('elasticType', { label: 'elastic', value: this.elastic })
+      this.$store.commit('setElasticType', this.elastic)
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
-  @import "../../assets/style/common";
+  @import "@/assets/style/common";
 .setting-box {
   height: calc(100% - 32px);
   width: calc(100% - 32px);

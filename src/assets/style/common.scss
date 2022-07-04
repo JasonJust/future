@@ -1,12 +1,13 @@
 $--color-primary: var(--color, gray);
+$--lebel-color: gray;
+$--value-color: #0b73d7;
 
 //$--background-color-deep: linear-gradient(to left top, #2347ad, #0092ff);
 $--background-color-primary: var(--backgroundDefault, transparent);
 $--vice-background-color: rgba(221, 221, 221, 0.2);
 $--bar-primary: #0092ff;
 
-$--shadow-color-primary: #f0f0f0;
-
+$--shadow-color-primary: 1px 2px 8px #f0f0f0;
 $--border-radius-primary: 8px;
 
 $--top-menu-height: 48px;

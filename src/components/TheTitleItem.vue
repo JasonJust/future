@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import "../assets/style/common";
+  @import "@/assets/style/common";
 .title-box {
   width: 100%;
   height: $gap-xl;
