@@ -47,8 +47,8 @@ const goods = {
       price: 10,
       salesVolume: {
         month: 300,
-        weekly: 100,
-        day: 15
+        weekly: 150,
+        day: 20
       }
     },
     {
@@ -65,7 +65,7 @@ const goods = {
     },
     {
       id: 5,
-      name: '芝士梅梅',
+      name: '可吱吱',
       image: 'zhishimeimei',
       type: ['果茶'],
       price: 15,
@@ -77,12 +77,12 @@ const goods = {
     },
     {
       id: 6,
-      name: '芝士梅梅',
+      name: '桃夭夭',
       image: 'zhishimeimei',
       type: ['果茶'],
       price: 15,
       salesVolume: {
-        month: 500,
+        month: 400,
         weekly: 100,
         day: 15
       }
@@ -94,19 +94,19 @@ const goods = {
       type: ['果茶'],
       price: 15,
       salesVolume: {
-        month: 500,
+        month: 450,
         weekly: 100,
         day: 15
       }
     },
     {
       id: 8,
-      name: '芝士梅梅',
+      name: '椰大大',
       image: 'zhishimeimei',
       type: ['果茶'],
       price: 15,
       salesVolume: {
-        month: 500,
+        month: 300,
         weekly: 100,
         day: 15
       }

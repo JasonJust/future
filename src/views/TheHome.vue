@@ -157,6 +157,7 @@ export default {
     .the-home-content {
       height: 100%;
       width: 100%;
+      @include scroll();
       /*width: calc(100% - 32px);
       height: calc(100% - 32px);
       padding: $gap;*/
