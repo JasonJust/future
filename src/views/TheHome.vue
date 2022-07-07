@@ -9,7 +9,7 @@
           <el-menu-item v-for="item in menuList"
                         :key="item.id"
                         :index="item.config.route.name">
-            <i :class="item.config.icon" v-if="item.config.icon"></i>
+            <i :class="item.config.icon" class="icon iconfont" v-if="item.config.icon"></i>
             <span slot="title">{{item.name}}</span>
           </el-menu-item>
         </el-menu>
@@ -27,7 +27,7 @@
         <el-menu-item v-for="item in menuList"
                       :key="item.id"
                       :index="item.config.route.name">
-                      <i :class="item.config.icon" v-if="item.config.icon"></i>
+          <i :class="item.config.icon" class="icon iconfont" v-if="item.config.icon"></i>
           <span slot="title">{{item.name}}</span>
         </el-menu-item>
       </el-menu>
@@ -71,18 +71,20 @@ export default {
     '$store.state.themeType' () {
       switch (this.$store.state.themeType) {
         case 'default':
-          document.getElementsByClassName('the-home-content')[0].style.background = 'transparent'
+          document.getElementsByTagName('body')[0].style.setProperty('--backgroundDefault', 'transparent')
+          // document.getElementsByClassName('the-home-content')[0].style.background = 'transparent'
           document.getElementsByClassName('the-home-content')[0].style.color = 'black'
           break
         case 'deep':
-          document.getElementsByClassName('the-home-content')[0].style.color = 'white'
-          // document.getElementsByClassName('the-home-content')[0].style.setProperty('--color', 'white')
-          // document.getElementsByClassName('the-home-content')[0].style.background = 'linear-gradient(to left top, #2347ad, #0092ff)'
-          document.getElementsByClassName('the-home-content')[0].style.background = 'black'
+          document.getElementsByClassName('the-home-content')[0].style.color = '#ffffff'
+          // document.getElementsByTagName('body')[0].style.setProperty('--colorDefault', '#ffffff')
+          document.getElementsByTagName('body')[0].style.setProperty('--backgroundDefault', 'black')
           break
         case 'customized':
           document.getElementsByClassName('the-home-content')[0].style.color = 'white'
-          document.getElementsByClassName('the-home-content')[0].style.background = 'orange'
+          document.getElementsByClassName('the-home-content')[0].style.background = ''
+          document.getElementsByTagName('body')[0].style.setProperty('--backgroundDefault', 'orange')
+          // document.getElementsByTagName('body')[0].style.setProperty('--backgroundDefault', 'linear-gradient(to left top, #2347ad, #0092ff)')
           break
       }
     }
@@ -149,8 +151,8 @@ export default {
     display: flex;
     width: 100%;
     height: calc(100% - 48px);
-    overflow-y: auto;
     background-color: $--background-color-primary;
+    @include scroll();
 
     .the-home-content {
       height: 100%;
@@ -169,7 +171,7 @@ export default {
     .el-menu-vertical-small:not(.el-menu--collapse) {
       width: 250px;
       height: 100%;
-      overflow-y: auto;
+      @include scroll();
     }
 
     .the-home-right:not(.el-menu--collapse) {
@@ -180,6 +182,11 @@ export default {
 
   .the-home-all {
     height: 100%;
+  }
+
+  .icon {
+    font-size: 18px;
+    margin-right: 4px;
   }
 }
 </style>

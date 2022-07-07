@@ -1,11 +1,15 @@
-$--color-primary: var(--color, gray);
-$--lebel-color: gray;
-$--value-color: #0b73d7;
+@import 'variables-scroll';
+
+$--color-primary: var(--colorDefault, gray);
+$--lebel-color: gray; // 文本默认颜色
+$--value-color: #409EFF; // 值默认颜色
 
 //$--background-color-deep: linear-gradient(to left top, #2347ad, #0092ff);
-$--background-color-primary: var(--backgroundDefault, transparent);
-$--vice-background-color: rgba(221, 221, 221, 0.2);
-$--bar-primary: #0092ff;
+$--background-color-primary: var(--backgroundDefault, transparent); // 默认背景色
+$--card-background-color: rgba(221, 221, 221, 0.2); // 卡片底色
+$--card-background-color-choose: #f0f0f0; // 选中底色
+//$--vice-background-color: rgba(221, 221, 221, 0.2);
+$--bar-primary: #0092ff; // 条
 
 $--shadow-color-primary: 1px 2px 8px #f0f0f0;
 $--border-radius-primary: 8px;

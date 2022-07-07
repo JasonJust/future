@@ -1,0 +1,36 @@
+@mixin scroll($bg: #f6f6f6, $thumb: #999, $btn: #999) {
+  scrollbar-3dlight-color: $bg;
+  scrollbar-highlight-color: $bg;
+  scrollbar-face-color: $thumb;
+  scrollbar-arrow-color: $btn;
+  scrollbar-shadow-color: $thumb;
+  scrollbar-dark-shadow-color: $thumb;
+  scrollbar-base-color: $bg;
+  scrollbar-track-color: $bg;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background: transparent;
+  }
+  &::-webkit-scrollbar-button {
+    background-color: $btn;
+    display: none;
+  }
+  &::-webkit-scrollbar-track {
+    background: $bg;
+  }
+  &::-webkit-scrollbar-track-piece {
+    background: $bg;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $thumb;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-corner {
+    background: $bg;
+  }
+  &::-webkit-resizer {
+    background: $bg;
+  }
+}

@@ -100,7 +100,7 @@ export default {
     line-height: $gap-xl;
     width: 100%;
     text-align: center;
-    background: $--vice-background-color;
+    background: $--card-background-color;
   }
 }
 </style>

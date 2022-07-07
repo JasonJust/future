@@ -12,7 +12,7 @@
   body {
     min-width: 1200px;
     /*min-height: 600px;*/
-    overflow: auto;
+    @include scroll();
   }
   html, body, #app {
     width: 100%;

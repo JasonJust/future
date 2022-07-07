@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    redirect: { name: 'login' }
+    redirect: { name: 'home' }
   },
   {
     path: '/login',
@@ -29,6 +29,11 @@ const routes = [
         path: '/dataView',
         name: 'dataView',
         component: () => import('@/views/echarts/DataView.vue')
+      },
+      {
+        path: '/drinkList',
+        name: 'drinkList',
+        component: () => import('@/views/drinks/DrinkList.vue')
       },
       {
         path: '/systemSettings',

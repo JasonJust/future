@@ -1,5 +1,5 @@
 <template>
-  <div class="drink-item-box">{{dataItem.name}}</div>
+  <div class="drink-item-box" @click="drinkDetails">{{dataItem.name}}</div>
 </template>
 
 <script>
@@ -9,6 +9,11 @@ export default {
     dataItem: {
       type: Object,
       default: () => {}
+    }
+  },
+  methods: {
+    drinkDetails () {
+      this.$emit('drinkDetails')
     }
   }
 }
