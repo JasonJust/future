@@ -2,14 +2,15 @@
   <div class="amount-box">
     <div class="pie-item-box">
       <div class="pie-item">
-        <nightingale-rose :data-item="roseData" v-if="roseData"></nightingale-rose>
+        <nightingale-rose :data-item="roseData" title="月销售额" v-if="roseData"></nightingale-rose>
       </div>
     </div>
     <div class="pie-item-box">
-      <pie-custom-charts></pie-custom-charts>
+      <pie-custom-charts :data-item="salesVolume" title="销售额"></pie-custom-charts>
     </div>
     <div class="pie-item-box">
       <div class="pie-item">
+        <pie-charts :data-item="salesVolume" title="销售额"></pie-charts>
       </div>
     </div>
   </div>
@@ -19,13 +20,15 @@
 import * as _ from 'lodash'
 import NightingaleRose from '@/views/echarts/components/echarts/pie-charts/NightingaleRoseCharts'
 import PieCustomCharts from '@/views/echarts/components/echarts/pie-charts/PieCustomCharts'
-import { goods } from '@/assets/js/dataList'
+import PieCharts from '@/views/echarts/components/echarts/pie-charts/PieCharts'
+import { goods, dataView } from '@/assets/js/dataList'
 
 export default {
   name: 'AmountContainer',
   components: {
     PieCustomCharts,
-    NightingaleRose
+    NightingaleRose,
+    PieCharts
   },
   computed: {
     roseData () {
@@ -43,6 +46,10 @@ export default {
           }
         })
       }
+    },
+    salesVolume () {
+      console.log(goods, dataView)
+      return dataView.salesVolume
     }
   }
 }

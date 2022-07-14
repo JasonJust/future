@@ -107,7 +107,7 @@ export default {
               }
             },
             barWidth: 14,
-            data: [this.dataItem.value]
+            data: [this.dataItem.sales]
           },
           {
             name: '背景',

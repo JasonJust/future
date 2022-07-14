@@ -5,13 +5,36 @@
 <script>
 export default {
   name: 'PieCustomCharts',
+  props: {
+    dataItem: {
+      type: Array,
+      default: () => []
+    },
+    title: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       chartIns: '',
-      options: {
-        backgroundColor: '#2c343c',
+      options: {}
+    }
+  },
+  methods: {
+    init () {
+      const dataList = this.dataItem.map((i) => {
+        return {
+          name: i.label,
+          value: Number(i.value)
+        }
+      })
+      console.log(dataList)
+      this.options = {
+        // backgroundColor: '#2c343c',
+        backgroundColor: 'gray',
         title: {
-          text: 'Customized Pie',
+          text: this.title,
           left: 'center',
           top: 20,
           textStyle: {
@@ -42,6 +65,7 @@ export default {
               { value: 235, name: 'Video Ads' },
               { value: 400, name: 'Search Engine' }
             ].sort(function (a, b) {
+              console.log(a.value, b.value, a.value - b.value)
               return a.value - b.value
             }),
             roseType: 'radius',
@@ -69,10 +93,6 @@ export default {
           }
         ]
       }
-    }
-  },
-  methods: {
-    init () {
       if (!this.chartIns) {
         this.chartIns = this.$echarts.init(this.$refs.canvas)
       }

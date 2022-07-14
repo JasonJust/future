@@ -97,7 +97,6 @@ export default {
   },
   methods: {
     init () {
-      console.log(this.dataItem, this.options)
       this.options.series = []
       this.options.xAxis.data = []
       for (let i = 0; i < this.dataItem.dataList.slice(0, 3).length; i++) {
@@ -115,10 +114,10 @@ export default {
         }
 
         for (let j = 0; j < this.dataItem.times.length; j++) {
-          obj.data.push(obj.data.length > 0 ? (obj.data[obj.data.length - 1] + (this.dataItem.dataList.slice(0, 3)[i].value / this.dataItem.times.length)) + 0.1 : 0)
+          obj.data.push(obj.data.length > 0 ? (obj.data[obj.data.length - 1] + (this.dataItem.dataList.slice(0, 3)[i].sales / this.dataItem.times.length)) + 0.1 : 0)
         }
         obj.data = obj.data.map((i) => {
-          return i.toFixed(2)
+          return i.toFixed(0)
         })
         this.options.series.push(obj)
       }

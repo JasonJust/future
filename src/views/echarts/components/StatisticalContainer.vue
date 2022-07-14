@@ -12,6 +12,7 @@
                :key="item.id">
             <i class="icon iconfont icon-jiangpai" v-if="index === 0"></i>
             <bar-item-charts :data-item="item"
+                             v-if="item"
                              :max-bg-value="maxBackgroundValue"
                              :type="timeType"></bar-item-charts>
           </div>
@@ -51,12 +52,12 @@ export default {
       return result
     },
     barData () {
-      return _.orderBy(goods.drinkData.map((i) => {
+      const result = goods.drinkData.map((i) => {
         const obj = i
-        obj.value = _.cloneDeep(i.salesVolume[this.timeType])
-        console.log(obj, i.salesVolume[this.timeType], this.timeType)
+        obj.sales = i.salesVolume[this.timeType]
         return obj
-      }), ['value'], ['desc'])
+      })
+      return _.orderBy(result, ['value'], ['desc'])
     },
     lineData () {
       this.getLineTimes()
@@ -65,7 +66,6 @@ export default {
         colors: ['red', 'orange', '#0b73d7'],
         dataList: this.barData
       }
-      console.log(result)
       return result
     }
   },

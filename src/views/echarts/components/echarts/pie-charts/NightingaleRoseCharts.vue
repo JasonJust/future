@@ -9,6 +9,10 @@ export default {
     dataItem: {
       type: Object,
       default: () => {}
+    },
+    title: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -18,6 +22,12 @@ export default {
         // legend: {
         //   top: 'bottom'
         // },
+        title: {
+          text: this.title,
+          textStyle: {
+            color: 'gray'
+          }
+        },
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c} ({d}%)'
@@ -35,7 +45,7 @@ export default {
           {
             name: '',
             type: 'pie',
-            radius: [50, 140],
+            radius: [15, 120],
             center: ['50%', '50%'],
             roseType: 'area',
             itemStyle: {

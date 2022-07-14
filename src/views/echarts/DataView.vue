@@ -19,6 +19,11 @@
           <amount-container></amount-container>
         </div>
       </div>
+      <div class="data-view-item-box">
+        <h4>总计图</h4>
+        <div class="data-view-table">
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -124,6 +129,13 @@ export default {
       .data-view-container {
         width: 80%;
         background: $--card-background-color;
+        height: 350px;
+        margin: 0 auto;
+        display: flex;
+      }
+
+      .data-view-table {
+        width: 60%;
         height: 350px;
         margin: 0 auto;
         display: flex;
