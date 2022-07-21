@@ -7,7 +7,7 @@ export default [
     order: 1,
     config: {
       isDefault: true,
-      icon: 'icon-dianpu',
+      icon: 'icon-shouye',
       route: {
         name: 'index'
       },

@@ -4,15 +4,27 @@
       <h1>登  录</h1>
       <el-form :model="form" ref="form" :rules="formRules">
         <el-form-item prop="userName">
-          <el-input placeholder="请输入用户名" v-model="form.userName"></el-input>
+          <template slot="label"><i class="icon iconfont icon-haoyourenzheng"></i></template>
+          <el-input placeholder="请输入用户名"
+                    v-model="form.userName"
+                    class="animation-input-username"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input placeholder="请输入密码" type="password" v-model="form.password"></el-input>
+          <template slot="label"><i class="icon iconfont icon-mima"></i></template>
+          <el-input placeholder="请输入密码"
+                    type="password"
+                    v-model="form.password"
+                    class="animation-input-password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="login">登录</el-button>
+<!--          <el-button type="primary" @click="login" class="animation-button">登录</el-button>-->
         </el-form-item>
       </el-form>
+      <div class="operation-box">
+        <el-button type="primary" @click="login" class="animation-button">登录</el-button>
+      </div>
+      <div>
+      </div>
     </div>
 <!--    <div class="login-copyright">版权所有©JasonJust</div>-->
   </div>
@@ -36,10 +48,20 @@ export default {
       }
     }
   },
+  mounted () {
+    setTimeout(() => {
+      document.getElementsByClassName('animation-input-password')[0].style.visibility = 'visible'
+    }, 1000)
+    setTimeout(() => {
+      // document.getElementsByClassName('animation-button')[0].style.visibility = 'visible'
+      document.getElementsByClassName('animation-button')[0].style.display = 'block'
+    }, 2000)
+  },
   methods: {
     login () {
       this.$refs.form.validate((valide) => {
         if (valide) {
+          this.$store.commit('setUserMessage', this.form)
           console.log('登录成功')
           this.$router.push({ path: '/home' })
         } else {
@@ -75,12 +97,20 @@ export default {
     color: $--color-primary;
 
     /deep/ .el-form {
+      width: 95%;
+      margin: 0 auto;
 
       .el-form-item {
+        display: flex;
+        justify-content: center;
+
         .el-form-item__label {
           color: $--color-primary;
         }
         .el-form-item__content {
+          display: flex;
+          justify-content: center;
+
           .el-button {
             width: 100%;
           }
@@ -90,6 +120,94 @@ export default {
 
     h1 {
       margin: 70px 0;
+    }
+
+    @keyframes username{
+      0%{
+        width: 50%;
+        height: 50%;
+      }
+
+      25%{
+        width: 100%;
+        height: 100%;
+      }
+
+      50%{
+        width: 80%;
+        height: 80%;
+      }
+
+      100%{
+        width: 100%;
+        height: 100%;
+      }
+    }
+    @keyframes password{
+      0%{
+        width: 100%;
+        height: 100%;
+      }
+
+      25%{
+        width: 80%;
+        height: 80%;
+      }
+
+      50%{
+        width: 100%;
+        height: 100%;
+      }
+
+      100%{
+        width: 90%;
+        height: 90%;
+      }
+    }
+    @keyframes buttonanimation{
+      0%{
+        width: 80%;
+        height: 80%;
+        font-size: 16px;
+      }
+
+      25%{
+        width: 65%;
+        height: 65%;
+      }
+
+      50%{
+        width: 80%;
+        height: 80%;
+      }
+
+      75%{
+        width: 75%;
+        height: 75%;
+      }
+    }
+
+    .animation-input-username {
+      animation:username 1.5s 1;
+    }
+
+    .animation-input-password {
+      animation:password 2s 1;
+      animation-delay: 0.5s;
+      visibility: hidden;
+    }
+
+    .operation-box {
+      display: flex;
+      justify-content: center;
+
+      .animation-button {
+        width: 77%;
+        margin-left: 32px;
+        animation-delay: 0.5s;
+        animation:buttonanimation 1.5s 1;
+        display: none;
+      }
     }
   }
 

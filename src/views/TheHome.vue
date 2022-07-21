@@ -14,7 +14,17 @@
           </el-menu-item>
         </el-menu>
       </div>
-      <div class="home-user"></div>
+      <div class="home-user">
+        <el-dropdown @command="handleCommand">
+          <span class="el-dropdown-link">
+            <div class="home-user-name" :title="$store.state.user.name">{{$store.state.user.name}}</div>
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu>
+            <el-dropdown-item command="out" divided>退出</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </div>
     <div class="the-home-vertical" :class="[type !== 'top' ? 'the-home-all' : '']">
       <el-menu class="el-menu-vertical-small"
@@ -65,6 +75,12 @@ export default {
       this.$router.push({
         name: routeName
       })
+    },
+    handleCommand (item) {
+      switch (item) {
+        case 'out':
+          break
+      }
     }
   },
   watch: {
@@ -140,10 +156,27 @@ export default {
 
     .home-user {
       height: 100%;
-      width: 200px;
+      width: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      .el-dropdown {
+        width: 100%;
+
+        .el-dropdown-link {
+          display: flex;
+
+          .home-user-name {
+            width: 80%;
+            text-align: right;
+            padding-right: $gap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
     }
   }
 

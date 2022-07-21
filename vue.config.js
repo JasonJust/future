@@ -13,9 +13,9 @@ module.exports = defineConfig({
         changeOrigin: true // 表示是否跨域
       }
     }
+  },
+  chainWebpack: config => {
+    config.resolve.alias
+      .set('@', resolve('src'))
   }
-  // chainWebpack: config => {
-  //   config.resolve.alias
-  //     .set('@', resolve('src'))
-  // }
 })

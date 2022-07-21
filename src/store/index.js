@@ -7,11 +7,15 @@ export default new Vuex.Store({
   state: {
     menuType: 'top',
     elasticType: true,
-    themeType: 'default'
+    themeType: 'default',
+    user: {}
   },
   getters: {
   },
   mutations: {
+    setUserMessage: (state, data) => {
+      state.user = data
+    },
     setMenuType: (state, name) => {
       state.menuType = name
     },

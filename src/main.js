@@ -15,6 +15,18 @@ Vue.use(axios)
 Vue.prototype.$config = window.APP_CONFIG
 Vue.prototype.$echarts = echarts
 Vue.prototype.$axios = axios
+
+router.beforeEach((to, from, next) => {
+  if (!store.state.user.name) {
+    if (to.path === '/login') {
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    next()
+  }
+})
 new Vue({
   router,
   store,

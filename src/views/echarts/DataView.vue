@@ -1,5 +1,5 @@
 <template>
-  <div class="data-view-box">
+  <the-page-container>
     <div class="data-view-top">
       <div class="top-item" v-for="item in topData" :key="item.title">
         <div class="text-overflow top-item-value" :title="item.value">{{item.value}}</div>
@@ -20,25 +20,29 @@
         </div>
       </div>
       <div class="data-view-item-box">
-        <h4>总计图</h4>
+        <h4>饮品详情</h4>
         <div class="data-view-table">
+          <table-view></table-view>
         </div>
       </div>
     </div>
-  </div>
+  </the-page-container>
 </template>
 
 <script>
-import { dataView } from '@/assets/js/dataList'
+import { dataView, goods } from '@/assets/js/dataList'
 import StatisticalContainer from '@/views/echarts/components/StatisticalContainer'
 import AmountContainer from '@/views/echarts/components/AmountContainer'
+import TableView from '@/views/echarts/components/TableView'
+import ThePageContainer from '@/components/ThePageContainer'
 
 export default {
   name: 'DataView',
-  components: { AmountContainer, StatisticalContainer },
+  components: { ThePageContainer, TableView, AmountContainer, StatisticalContainer },
   data () {
     return {
-      topData: dataView.salesVolume
+      topData: dataView.salesVolume,
+      tableData: goods.drinkData
     }
   },
   computed: {
@@ -63,10 +67,6 @@ export default {
 <style scoped lang="scss">
   @import "@/assets/style/common";
 
-.data-view-box {
-  width: 100%;
-  height: 100%;
-
   .text-overflow {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -79,6 +79,24 @@ export default {
     margin: $gap-xl;
     display: flex;
     justify-content: center;
+
+    @keyframes fadenum{ /*关键帧动画*/
+      0%{
+        font-size: 48px;
+      }
+
+      25%{
+        font-size: 52px;
+      }
+
+      50%{
+        font-size: 44px;
+      }
+
+      100%{
+        font-size: 48px;
+      }
+    }
 
     .top-item {
       height: 100%;
@@ -105,6 +123,7 @@ export default {
         font-weight: bold;
         font-size: 48px;
         margin-top: $gap;
+        animation:fadenum 2s 1;
       }
     }
 
@@ -139,8 +158,11 @@ export default {
         height: 350px;
         margin: 0 auto;
         display: flex;
+
+        /deep/ .el-table--scrollable-y .el-table__body-wrapper {
+          @include scroll($bg: #f0f0f0, $thumb: #999);
+        }
       }
     }
   }
-}
 </style>

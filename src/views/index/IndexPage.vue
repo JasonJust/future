@@ -1,5 +1,5 @@
 <template>
-  <div class="index-box">12
+  <div class="index-box">
   </div>
 </template>
 

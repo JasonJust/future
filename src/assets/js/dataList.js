@@ -23,7 +23,7 @@ const goods = {
         },
         {
           label: '简介',
-          value: ['牛奶']
+          value: ['浓郁草莓与洛洛干相碰撞']
         }
       ]
     },

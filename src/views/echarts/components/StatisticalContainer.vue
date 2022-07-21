@@ -144,8 +144,9 @@ export default {
   display: flex;
 
   .statistical-box-left {
-    width: 50%;
+    width: calc(50% - 16px);
     height: 100%;
+    margin-right: $gap;
 
     /deep/ .el-radio-group {
       height: 100px;
@@ -198,7 +199,7 @@ export default {
   }
 
   .statistical-box-right {
-    width: 100%;
+    width: 50%;
     height: 100%;
   }
 }
