@@ -27,11 +27,7 @@ export default {
   },
   mounted () {
     this.init()
-    window.addEventListener('resize', () => {
-      if (this.chartIns) {
-        this.chartIns.resize()
-      }
-    })
+    window.addEventListener('resize', this.onResize)
   },
   methods: {
     init () {
@@ -135,6 +131,11 @@ export default {
         this.chartIns = this.$echarts.init(this.$refs.canvas)
       }
       this.chartIns.setOption(this.options)
+    },
+    onResize () {
+      if (this.chartIns) {
+        this.chartIns.resize()
+      }
     }
   },
   watch: {
@@ -144,11 +145,7 @@ export default {
     }
   },
   beforeDestroy () {
-    window.addEventListener('resize', () => {
-      if (this.chartIns) {
-        this.chartIns.resize()
-      }
-    })
+    window.removeEventListener('resize', this.onResize)
     if (this.chartIns) {
       this.chartIns.dispose()
     }

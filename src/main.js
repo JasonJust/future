@@ -17,7 +17,7 @@ Vue.prototype.$echarts = echarts
 Vue.prototype.$axios = axios
 
 router.beforeEach((to, from, next) => {
-  if (!store.state.user.name) {
+  if (!store.state.user.userName) {
     if (to.path === '/login') {
       next()
     } else {

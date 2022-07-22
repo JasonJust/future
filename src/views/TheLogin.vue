@@ -9,19 +9,18 @@
                     v-model="form.userName"
                     class="animation-input-username"></el-input>
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item prop="password" class="animation-input-password">
           <template slot="label"><i class="icon iconfont icon-mima"></i></template>
           <el-input placeholder="请输入密码"
                     type="password"
-                    v-model="form.password"
-                    class="animation-input-password"></el-input>
+                    v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item>
 <!--          <el-button type="primary" @click="login" class="animation-button">登录</el-button>-->
         </el-form-item>
       </el-form>
       <div class="operation-box">
-        <el-button type="primary" @click="login" class="animation-button">登录</el-button>
+        <el-button type="primary" @click="login" class="animation-button" @keyup.enter.native="login">登录</el-button>
       </div>
       <div>
       </div>
@@ -49,6 +48,7 @@ export default {
     }
   },
   mounted () {
+    this.keyupSubmit()
     setTimeout(() => {
       document.getElementsByClassName('animation-input-password')[0].style.visibility = 'visible'
     }, 1000)
@@ -58,11 +58,18 @@ export default {
     }, 2000)
   },
   methods: {
+    keyupSubmit () {
+      document.onkeydown = e => {
+        const _key = window.event.keyCode
+        if (_key === 13) {
+          this.login()
+        }
+      }
+    },
     login () {
       this.$refs.form.validate((valide) => {
         if (valide) {
           this.$store.commit('setUserMessage', this.form)
-          console.log('登录成功')
           this.$router.push({ path: '/home' })
         } else {
           return false
@@ -191,7 +198,7 @@ export default {
       animation:username 1.5s 1;
     }
 
-    .animation-input-password {
+    .el-form-item:nth-child(2) {
       animation:password 2s 1;
       animation-delay: 0.5s;
       visibility: hidden;
